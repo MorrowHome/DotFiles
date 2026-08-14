@@ -1,0 +1,1389 @@
+/**
+ * Monokai Pro Theme for Typora
+ * 基于 Monokai Pro Spectrum 配色方案，迁移自 Obsidian Blue-Topaz 主题结构
+ * 支持中文字体、代码高亮与 Mermaid 图表（保留 night.css 兼容方案）
+ */
+
+/* ===========================================================================
+   Monokai Pro 配色方案（Spectrum）
+   =========================================================================== */
+
+:root {
+  /* Monokai Pro 背景色系 */
+  --bg-color-primary: #2D2A2E;     /* 主背景色 */
+  --bg-color-secondary: #221F22;   /* 面板、侧边栏背景 */
+  --bg-color-tertiary: #403E41;    /* 悬停背景 */
+  --bg-color-code: #252226;        /* 代码块背景 */
+  --bg-color-inline-code: #252226; /* 行内代码背景（与代码块一致） */
+
+  /* Monokai Pro 文本色系 */
+  --text-color-primary: #FCFCFA;   /* 主文本色 */
+  --text-color-secondary: #D8D5D4; /* 次要文本色 */
+  --text-color-muted: #939293;     /* 弱化文本色 */
+  --text-color-accent: #78DCE8;    /* 强调文本色、有序列表数字 */
+
+  /* Monokai Pro 强调色系 */
+  --accent-blue: #78DCE8;           /* 链接、按钮 */
+  --accent-cyan: #FFD866;           /* 悬停、次级强调 */
+  --accent-green: #A9DC76;          /* H4标题、斜体文本 */
+  --accent-yellow: #FFD866;         /* H3标题 */
+  --accent-orange: #FC9867;         /* H2标题 */
+  --accent-red: #FF6188;            /* 错误、H1标题 */
+  --accent-purple: #AB9DF2;         /* H5标题 */
+
+  /* 文本强调色系 */
+  --strong-color: #FFD866;          /* 粗体文本专用色 */
+  --strong-em-color: #FF6188;       /* 粗斜体文本专用色 */
+
+  /* 功能色系 */
+  --border-color: #403E41;          /* 边框色 */
+  --hover-bg: rgba(64, 62, 65, 0.45); /* 悬停背景 */
+  --selection-bg: rgba(120, 220, 232, 0.25); /* 选择背景 */
+  --shadow: rgba(0, 0, 0, 0.45);     /* 阴影 */
+  
+  /* 字体设置（来自Obsidian配置） */
+  --font-family-sans: 'LXGW WenKai', 'LXGW WenKai Screen R', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', Consolas, monospace;
+  --font-family-heading: '霞鹜文楷 GB Medium', 'LXGW WenKai', serif;
+  
+  /* 字体大小（来自Obsidian配置） */
+  --font-size-base: 16px;
+  --font-size-h1: 1.7625em;         /* 28.2px */
+  --font-size-h2: 1.6375em;         /* 26.2px */
+  --font-size-h3: 1.5125em;         /* 24.2px */
+  --font-size-h4: 1.3875em;         /* 22.2px */
+  --font-size-h5: 1.2625em;         /* 20.2px */
+  --font-size-h6: 1em;              /* 16px */
+  --font-size-code: 0.9em;          /* 14.4px */
+  
+  /* 其他设置 */
+  --line-height-base: 1.6;
+  --border-radius: 6px;
+  --content-max-width: 1200px;
+  --content-padding: 70px;
+
+  /* Typora 内置 UI 变量 */
+  --bg-color: #2D2A2E;
+  --text-color: #FCFCFA;
+  --side-bar-bg-color: #221F22;
+  --active-file-bg-color: rgba(120, 220, 232, 0.18);
+  --active-file-text-color: #FCFCFA;
+  --active-file-border-color: #78DCE8;
+  --item-hover-bg-color: #403E41;
+  --item-hover-text-color: #FCFCFA;
+  --control-text-color: #939293;
+  --control-text-hover-color: #FCFCFA;
+  --window-border: 1px solid #403E41;
+  --rawblock-edit-panel-bd: #221F22;
+  --search-select-bg-color: #78DCE8;
+  --primary-color: #78DCE8;
+  --primary-btn-border-color: #403E41;
+  --primary-btn-text-color: #221F22;
+
+  /* Mermaid 图表主题（采用 night.css 同款，兼容 sequence / flow / mermaid 等图表） */
+  --mermaid-theme: night;
+}
+
+/* ===========================================================================
+   基础样式设置
+   =========================================================================== */
+
+html {
+  font-size: var(--font-size-base);
+  background-color: var(--bg-color-primary);
+}
+
+body {
+  font-family: var(--font-family-sans);
+  color: var(--text-color-primary);
+  background-color: var(--bg-color-primary);
+  line-height: var(--line-height-base);
+  margin: 0;
+  padding: 0;
+  -webkit-font-feature-settings: "liga" on, "calt" on;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* SVG 默认填充色跟随文本（同 night.css），保证 flow/sequence 图表线条可见 */
+html,
+body {
+  fill: currentColor;
+}
+
+/* 主编辑区域 */
+#write {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 40px var(--content-padding);
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+}
+
+/* 源代码模式 */
+#typora-source .CodeMirror-lines {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 40px var(--content-padding);
+}
+
+/* ===========================================================================
+   标题样式
+   =========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  color: var(--text-color-primary);
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #FF6188;
+  margin-top: 0;
+  color: #FF6188;  /* Monokai Pro Red */
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid #FC9867;
+  color: #FC9867;  /* Monokai Pro Orange */
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  color: #FFD866;  /* Monokai Pro Yellow */
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #FFD866;
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  color: #A9DC76;  /* Monokai Pro Green */
+}
+
+h5 {
+  font-size: var(--font-size-h5);
+  color: #AB9DF2;  /* Monokai Pro Purple */
+}
+
+h6 {
+  font-size: var(--font-size-h6);
+  color: var(--text-color-muted);
+  font-weight: normal;
+}
+
+/* ===========================================================================
+   文本样式
+   =========================================================================== */
+
+p {
+  margin: 1rem 0;
+  color: var(--text-color-primary);
+}
+
+/* 文本选择 */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--text-color-primary);
+}
+
+/* 强调文本 */
+strong {
+  color: #FFD866;  /* Monokai Pro 黄色强调色 */
+  font-family: var(--font-family-heading);
+  font-weight: bold;
+}
+
+em {
+  color: #A9DC76;  /* 与 H4 相同的 Monokai Pro Green */
+  font-style: italic;
+}
+
+/* 粗斜体 (***content***) */
+strong em,
+em strong {
+  color: #FF6188;  /* 最强调文本：Monokai Pro 红 */
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* 删除线 */
+del {
+  color: var(--text-color-muted);
+  text-decoration: line-through;
+}
+
+/* 高亮 - 荧光笔样式 */
+mark {
+  background-color: rgba(255, 216, 102, 0.3);
+  color: var(--text-color-primary);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* 下标和上标 */
+sub, sup {
+  color: var(--accent-cyan);
+  font-size: 0.8em;
+}
+
+/* ===========================================================================
+   链接样式
+   =========================================================================== */
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-cyan);
+  border-bottom-color: var(--accent-cyan);
+}
+
+/* ===========================================================================
+   代码样式
+   =========================================================================== */
+
+/* 行内代码 */
+code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code);
+  background-color: var(--bg-color-inline-code);
+  color: #78DCE8;  /* Monokai Pro 蓝 */
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 键盘快捷键 */
+kbd {
+  border: 1px solid #727072;
+  background: transparent;
+  color: var(--text-color-primary);
+  margin: 0 4px;
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  padding: 3px 6px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 代码块 */
+.md-fences,
+.md-fences:active {
+  background-color: var(--bg-color-code);
+  border-radius: var(--border-radius);
+  padding: 8px 4px 8px 4px !important;
+  margin: 1.5rem 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code);
+  color: var(--text-color-primary);
+  line-height: 1.5;
+  overflow-x: auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* 代码块语言标签 - 独立小窗口样式 */
+.md-fences .code-tooltip {
+  display: block !important;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
+  background-color: var(--bg-color-code);
+  color: var(--text-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-family: var(--font-family-mono);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10;
+  min-width: 30px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 代码块聚焦时显示语言标签 */
+.md-fences.md-focus .code-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* CodeMirror代码编辑区域内边距 */
+.CodeMirror-lines {
+  padding-left: 4px;
+}
+
+/* 语言选择面板 */
+.auto-suggest-container {
+  background-color: var(--bg-color-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+  color: var(--text-color-primary) !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: 14px !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+  z-index: 1000 !important;
+}
+
+/* 语言选择项 */
+.auto-suggest-container .auto-suggest-item {
+  background-color: transparent !important;
+  color: var(--text-color-secondary) !important;
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  border-bottom: 1px solid rgba(64, 62, 65, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* 语言选择项悬停 */
+.auto-suggest-container .auto-suggest-item:hover,
+.auto-suggest-container .auto-suggest-item.active {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* 语言选择项高亮显示 */
+.auto-suggest-container .auto-suggest-item.selected {
+  background-color: var(--accent-blue) !important;
+  color: #221F22 !important;
+}
+
+/* 移除最后一项的边框 */
+.auto-suggest-container .auto-suggest-item:last-child {
+  border-bottom: none !important;
+}
+
+/* 删除重复的代码块聚焦样式 */
+
+/* 代码块语言输入框 */
+.md-fences .code-tooltip input {
+  background-color: var(--bg-color-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  color: var(--text-color-primary) !important;
+  padding: 4px 8px !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: 12px !important;
+}
+
+.md-fences .code-tooltip input:focus {
+  outline: none !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 2px rgba(120, 220, 232, 0.25) !important;
+}
+
+/* 语言选择下拉箭头 */
+.md-fences .code-tooltip .code-tooltip-content::after {
+  color: var(--text-color-muted) !important;
+}
+
+/* ===========================================================================
+   Mermaid 图表样式（合并自 night.css，采用 Monokai Pro 配色）
+   =========================================================================== */
+
+/* 上面的主 :root 中已设置 --mermaid-theme: night，广泛兼容 flow / sequence /
+   mermaid / classDiagram / stateDiagram / gantt / pie 等图表类型。 */
+
+/* 图表语言标签：当代码块为图表类型时，将语言提示移到图表面板下方 */
+.enable-diagrams pre.md-fences[lang="sequence"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="flow"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="mermaid"] .code-tooltip {
+  bottom: -2.2em;
+  right: 4px;
+}
+
+/* 聚焦时的图表面板边框（Monokai Pro 蓝强调） */
+#write .md-focus .md-diagram-panel {
+  border: 1px solid var(--accent-blue);
+  margin-left: -1px;
+  width: calc(100% + 2px);
+}
+
+/* 带行号的代码块聚焦时，图表面板宽度修正 */
+#write .md-focus.md-fences-with-lineno .md-diagram-panel {
+  margin-left: auto;
+}
+
+/* Mermaid 图表错误提示 */
+.md-diagram-panel-error {
+  color: #FF6188;
+}
+
+/* night.css 中的标签文字修正：保持与官方 night 主题一致的渲染效果 */
+[lang='mermaid'] .label {
+  color: #333;
+}
+
+/* --- Mermaid 解析失败时的错误图形（炸弹图标）适配 ---
+   mermaid 会把错误样式以 #mermaidChartNN .error-icon{...} 形式内嵌注入，
+   优先级很高，必须用 !important 才能覆盖。
+   原版是暗红 #a44141，在 #252226 深背景上几乎看不见。 */
+[lang='mermaid'] .error-icon {
+  fill: #FF6188 !important;            /* Monokai Pro Red，替代暗红炸弹 */
+}
+
+[lang='mermaid'] .error-text {
+  fill: #FCFCFA !important;            /* 错误文字提亮 */
+  stroke: none !important;
+}
+
+/* mermaid 节点/边上文字的兜底颜色（防止个别未覆盖处过暗） */
+[lang='mermaid'] .messageText,
+[lang='mermaid'] .noteText,
+[lang='mermaid'] .loopText {
+  fill: var(--text-color-primary);
+}
+
+/* --- 悬浮提示（链接/脚注预览、错误预览）适配，移植自 night.css 并换成 Monokai 配色 --- */
+.code-tooltip.md-hover-tip,
+div.code-tooltip {
+  background: var(--bg-color-secondary);
+  color: var(--text-color-primary);
+}
+
+.md-hover-tip {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.md-hover-tip .code-tooltip-content {
+  color: var(--text-color-secondary);
+}
+
+.md-hover-tip .md-arrow:after {
+  background: var(--bg-color-secondary);
+}
+
+.md-hover-tip a {
+  color: var(--accent-blue);
+}
+
+/* Popover 箭头颜色（night.css 同款适配） */
+.popover.bottom > .arrow:after {
+  border-bottom-color: var(--bg-color-secondary);
+}
+
+/* --- 代码错误 lint 悬浮提示（mermaid 报错时编辑器里的红色波浪线提示） ---
+   默认是系统浅色 infobackground，深色主题下非常突兀 */
+.CodeMirror-lint-tooltip {
+  background-color: var(--bg-color-tertiary);
+  color: var(--text-color-primary);
+  border: 1px solid #727072;
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-mono);
+  font-size: 0.85em;
+}
+
+.CodeMirror-lint-message-error,
+.CodeMirror-lint-message-warning {
+  color: var(--text-color-primary);
+}
+
+/* Typora的语言建议面板（另一种可能的类名） */
+.ty-suggest-panel {
+  background-color: var(--bg-color-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.ty-suggest-panel .ty-suggest-item {
+  background-color: transparent !important;
+  color: var(--text-color-secondary) !important;
+  padding: 6px 12px !important;
+  cursor: pointer !important;
+}
+
+.ty-suggest-panel .ty-suggest-item:hover,
+.ty-suggest-panel .ty-suggest-item.active {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* ===========================================================================
+   代码高亮（Monokai Pro 主题）
+   =========================================================================== */
+
+/* Monokai Pro 语法配色变量 */
+:root {
+  /* Monokai Pro 主要语法颜色 */
+  --mp-background: #252226;
+  --mp-foreground: #FCFCFA;
+  --mp-comment: #727072;
+  --mp-keyword: #FF6188;
+  --mp-string: #FFD866;
+  --mp-number: #AB9DF2;
+  --mp-function: #A9DC76;
+  --mp-variable: #FCFCFA;
+  --mp-property: #AB9DF2;
+  --mp-tag: #FF6188;
+  --mp-attribute: #FC9867;
+  --mp-operator: #FF6188;
+  --mp-punctuation: #939293;
+  --mp-class: #78DCE8;
+  --mp-constant: #AB9DF2;
+  --mp-builtin: #78DCE8;
+}
+
+/* CodeMirror 语法高亮 - Monokai Pro */
+.cm-s-inner .cm-keyword { color: var(--mp-keyword) !important; }        /* 关键字：紫色 */
+.cm-s-inner .cm-string { color: var(--mp-string) !important; }          /* 字符串：绿色 */
+.cm-s-inner .cm-comment { color: var(--mp-comment) !important; font-style: italic; } /* 注释：灰色斜体 */
+.cm-s-inner .cm-number { color: var(--mp-number) !important; }          /* 数字：橙色 */
+.cm-s-inner .cm-operator { color: var(--mp-operator) !important; }      /* 操作符：青色 */
+.cm-s-inner .cm-property { color: var(--mp-property) !important; }      /* 属性：紫色 */
+.cm-s-inner .cm-tag { color: var(--mp-tag) !important; }                /* 标签：红色 */
+.cm-s-inner .cm-attribute { color: var(--mp-attribute) !important; }    /* 属性名：黄色 */
+.cm-s-inner .cm-variable { color: var(--mp-variable) !important; }      /* 变量：白色 */
+.cm-s-inner .cm-variable-2 { color: var(--mp-function) !important; }    /* 变量2：蓝色 */
+.cm-s-inner .cm-def { color: var(--mp-function) !important; }           /* 定义：蓝色 */
+.cm-s-inner .cm-bracket { color: var(--mp-punctuation) !important; }    /* 括号：青色 */
+.cm-s-inner .cm-builtin { color: var(--mp-builtin) !important; }        /* 内置：黄色 */
+.cm-s-inner .cm-atom { color: var(--mp-constant) !important; }          /* 原子：橙色 */
+.cm-s-inner .cm-meta { color: var(--mp-attribute) !important; }         /* 元信息：黄色 */
+.cm-s-inner .cm-qualifier { color: var(--mp-keyword) !important; }      /* 限定符：紫色 */
+.cm-s-inner .cm-link { color: var(--mp-function) !important; }          /* 链接：蓝色 */
+.cm-s-inner .cm-quote { color: var(--mp-string) !important; }           /* 引用：绿色 */
+.cm-s-inner .cm-negative { color: var(--mp-tag) !important; }           /* 负数：红色 */
+.cm-s-inner .cm-positive { color: var(--mp-string) !important; }        /* 正数：绿色 */
+.cm-s-inner .cm-string-2 { color: var(--mp-string) !important; }        /* 字符串2：绿色 */
+.cm-s-inner .cm-variable-3 { color: var(--mp-class) !important; }       /* 变量3：黄色 */
+.cm-s-inner .cm-hr { color: var(--mp-operator) !important; }            /* 水平线：青色 */
+
+/* Typora 内置代码高亮 - Monokai Pro */
+.cm-s-typora-default .cm-header { color: var(--mp-function) !important; }    /* 标题：蓝色 */
+.cm-s-typora-default .cm-string { color: var(--mp-string) !important; }      /* 字符串：绿色 */
+.cm-s-typora-default .cm-comment { color: var(--mp-comment) !important; }    /* 注释：灰色 */
+.cm-s-typora-default .cm-number { color: var(--mp-number) !important; }      /* 数字：橙色 */
+.cm-s-typora-default .cm-link { color: var(--mp-function) !important; }      /* 链接：蓝色 */
+.cm-s-typora-default .cm-tag { color: var(--mp-tag) !important; }            /* 标签：红色 */
+.cm-s-typora-default .cm-strong { color: var(--mp-keyword) !important; }     /* 粗体：紫色 */
+.cm-s-typora-default .cm-em { color: var(--mp-attribute) !important; }       /* 斜体：黄色 */
+.cm-s-typora-default .cm-property { color: var(--mp-property) !important; }  /* 属性：紫色 */
+.cm-s-typora-default .cm-atom { color: var(--mp-constant) !important; }      /* 原子：橙色 */
+.cm-s-typora-default .cm-keyword { color: var(--mp-keyword) !important; }    /* 关键字：紫色 */
+.cm-s-typora-default .cm-code { color: var(--mp-string) !important; }        /* 代码：绿色 */
+.cm-s-typora-default .cm-del { color: var(--mp-tag) !important; }            /* 删除：红色 */
+.cm-s-typora-default .cm-block-start { color: var(--mp-operator) !important; } /* 块开始：青色 */
+
+/* 特殊语言支持 */
+.cm-s-typora-default .cm-formatting-task { color: var(--mp-keyword) !important; } /* 任务格式：紫色 */
+
+/* ===========================================================================
+   引用块样式
+   =========================================================================== */
+
+blockquote {
+  border-left: 4px solid var(--accent-blue);
+  background-color: rgba(120, 220, 232, 0.12);
+  padding: 16px 20px;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  color: var(--text-color-secondary);
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0.5rem 0;
+}
+
+blockquote blockquote {
+  border-left-color: var(--accent-cyan);
+  background-color: rgba(255, 216, 102, 0.08);
+}
+
+/* ===========================================================================
+   列表样式
+   =========================================================================== */
+
+ul, ol {
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+li {
+  margin: 0.5rem 0;
+  color: var(--text-color-primary);
+}
+
+/* 有序列表数字样式 */
+ol li::marker {
+  color: #78DCE8;  /* Monokai Pro 蓝色调，用于有序列表数字 */
+  font-weight: 600;
+  font-family: var(--font-family-heading);
+}
+
+/* 任务列表 - SVG 自定义勾选框 */
+#write input[type=checkbox] {
+  opacity: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: -2em;
+  margin-top: 0;
+  top: 0;
+}
+
+#write .ul-list li.md-task-list-item.task-list-done::before {
+  content: "";
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='128' y='128' width='768' height='768' rx='100' fill='%2378DCE8'/%3E%3Cpath d='M425.984 726.016l384-384-59.99-61.995-324.01 324.011-152.021-152.021L213.973 512z' fill='white'/%3E%3C/svg%3E") 0 0 no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: -2em;
+}
+
+#write .ul-list li.md-task-list-item.task-list-not-done::before {
+  content: "";
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='160' y='160' width='704' height='704' rx='80' fill='none' stroke='%23403E41' stroke-width='64'/%3E%3C/svg%3E") 0 0 no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: -2em;
+}
+
+.task-list-item p {
+  line-height: 1.6rem;
+}
+
+/* ===========================================================================
+   表格样式
+   =========================================================================== */
+
+table {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background-color: var(--bg-color-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  width: 100%;
+}
+
+thead,
+.md-table thead tr,
+.md-table-fig thead tr {
+  background-color: #403E41 !important;
+}
+
+th, td {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+th {
+  color: var(--text-color-primary);
+  font-weight: 600;
+  font-family: var(--font-family-heading);
+}
+
+td {
+  color: var(--text-color-secondary);
+}
+
+/* 奇数行 */
+tr:nth-child(odd),
+.md-table tbody tr:nth-child(odd) {
+  background-color: var(--bg-color-primary);     /* #2D2A2E */
+}
+
+/* 偶数行 */
+tr:nth-child(even),
+.md-table tbody tr:nth-child(even) {
+  background-color: var(--bg-color-secondary);   /* #221F22 */
+}
+
+tr:hover,
+.md-table tbody tr:hover {
+  background-color: rgba(120, 220, 232, 0.18) !important;
+}
+
+/* 表格编辑工具条 */
+.ty-table-edit {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 4px 8px;
+  margin-top: -1rem !important;
+}
+
+.ty-table-edit button {
+  background-color: transparent;
+  color: var(--text-color-secondary);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.ty-table-edit button:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-color-primary);
+}
+
+/* ===========================================================================
+   脚注样式
+   =========================================================================== */
+
+#write .md-footnote {
+  background-color: inherit;
+  color: var(--accent-blue);
+  font-size: 0.9rem;
+  padding-left: 0;
+}
+
+#write .md-footnote:before {
+  content: "[";
+}
+
+#write .md-footnote:after {
+  content: "]";
+}
+
+.footnotes {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+  opacity: 1;
+}
+
+/* ===========================================================================
+   分割线样式
+   =========================================================================== */
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  margin: 2rem 0;
+}
+
+/* ===========================================================================
+   图片样式
+   =========================================================================== */
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow);
+  margin: 1rem 0;
+}
+
+/* ===========================================================================
+   YAML Front Matter
+   =========================================================================== */
+
+pre.md-meta-block {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin: 0 0 2rem 0;
+  color: var(--text-color-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code);
+}
+
+/* ===========================================================================
+   目录 (TOC) 样式
+   =========================================================================== */
+
+.md-toc {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin: 1.5rem 0;
+}
+
+.md-toc-content {
+  color: var(--text-color-secondary);
+}
+
+.md-toc-item {
+  margin: 4px 0;
+}
+
+.md-toc-item a {
+  color: var(--text-color-secondary);
+  text-decoration: none;
+}
+
+.md-toc-item a:hover {
+  color: var(--accent-blue);
+}
+
+/* ===========================================================================
+   大纲面板样式（简洁版）
+   =========================================================================== */
+
+/* 大纲下拉菜单面板 */
+#outline-dropmenu {
+  background-color: var(--bg-color-secondary) !important;
+  border: 0px !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2) !important;
+  color: var(--text-color-secondary) !important;
+}
+
+/* 大纲项目悬停 */
+.outline-item:hover {
+  color: var(--hover-text-color) !important;
+}
+
+/* 大纲标签悬停 */
+.outline-label:hover {
+  text-decoration: none !important;
+}
+
+/* 侧边栏固定大纲激活项 */
+.pin-outline .outline-active {
+  color: var(--hover-text-color) !important;
+}
+
+/* ===========================================================================
+   UI控件样式
+   =========================================================================== */
+
+/* 侧边栏 */
+#typora-sidebar {
+  background-color: var(--bg-color-secondary);
+  border-right: 1px solid var(--border-color);
+  color: var(--text-color-primary);
+}
+
+/* 侧边栏标题栏 */
+#typora-sidebar .sidebar-title,
+#typora-sidebar .sidebar-header {
+  color: var(--text-color-primary) !important;
+}
+
+/* 文件列表 */
+.file-list-item {
+  color: var(--text-color-secondary);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.file-list-item:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-color-primary);
+}
+
+.file-list-item.active {
+  background-color: var(--accent-blue);
+  color: var(--primary-btn-text-color);
+}
+
+/* 文件树 — 全局文字颜色 */
+#typora-sidebar,
+#typora-sidebar *:not(.file-node-background) {
+  color: var(--text-color-secondary) !important;
+}
+
+/* 文件树节点背景 */
+#typora-sidebar .file-node-background {
+  background-color: transparent !important;
+}
+
+/* 文件树悬停 */
+#typora-sidebar .file-tree-node:hover .file-node-content,
+#typora-sidebar .file-tree-node:hover .file-node-title {
+  color: var(--text-color-primary) !important;
+}
+
+/* 文件树选中项 */
+#typora-sidebar .file-tree-node.active > .file-node-content,
+#typora-sidebar .file-tree-node.active > .file-node-content *,
+#typora-sidebar .active .file-node-title {
+  color: #FCFCFA !important;
+}
+
+#typora-sidebar .file-tree-node.active .file-node-background {
+  background-color: rgba(120, 220, 232, 0.18) !important;
+}
+
+/* 文件列表选中项 */
+#typora-sidebar .file-list-item.active {
+  background-color: rgba(120, 220, 232, 0.18) !important;
+  color: #FCFCFA !important;
+}
+
+#typora-sidebar .file-list-item.active * {
+  color: #FCFCFA !important;
+}
+
+/* 侧边栏底部控件（排序/视图切换按钮） */
+#typora-sidebar .sidebar-footer-btn,
+#typora-sidebar .sidebar-footer-btn.active,
+#typora-sidebar .file-sort-icon,
+#typora-sidebar .file-sort-icon.active,
+#typora-sidebar .sidebar-footer-item,
+#typora-sidebar .sidebar-footer-item.active,
+#typora-sidebar .ty-sidebar-footer button,
+#typora-sidebar .ty-sidebar-footer .btn,
+#typora-sidebar [class*="sort"] button,
+#typora-sidebar [class*="sort"] .active,
+#typora-sidebar .sidebar-menu-item,
+#typora-sidebar .sidebar-menu-item.active {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#typora-sidebar .sidebar-footer-btn.active,
+#typora-sidebar .file-sort-icon.active,
+#typora-sidebar .sidebar-footer-item.active,
+#typora-sidebar .sidebar-menu-item.active {
+  color: var(--text-color-primary) !important;
+  background-color: var(--bg-color-tertiary) !important;
+  border-radius: 4px !important;
+}
+
+/* 搜索面板 */
+#md-searchpanel {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+/* 输入框 */
+input, textarea {
+  background-color: var(--bg-color-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color-primary);
+  padding: 8px 12px;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(120, 220, 232, 0.25);
+}
+
+/* 按钮 */
+.btn {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-cyan);
+  transform: translateY(-1px);
+}
+
+/* 状态栏 */
+footer {
+  background-color: var(--bg-color-secondary);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color-muted);
+}
+
+/* ===========================================================================
+   滚动条样式
+   =========================================================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
+/* ===========================================================================
+   源代码模式特殊样式
+   =========================================================================== */
+
+#typora-source {
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  font-family: var(--font-family-mono);
+}
+
+.CodeMirror {
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  border: none;
+}
+
+.CodeMirror-lines {
+  padding: 20px 0;
+}
+
+.CodeMirror-cursor {
+  border-left: 2px solid var(--accent-blue);
+}
+
+.CodeMirror-selected {
+  background-color: var(--selection-bg);
+}
+
+/* ===========================================================================
+   HTML 块样式
+   =========================================================================== */
+
+.md-htmlblock-container {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 8px;
+  color: var(--text-color-primary);
+}
+
+.md-htmlblock:hover .md-htmlblock-container {
+  background-color: var(--bg-color-secondary);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* HTML/Raw 块编辑模式 */
+.md-rawblock > .md-rawblock-container {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+  border-radius: var(--border-radius);
+}
+
+.md-htmlblock.md-focus .md-htmlblock-container {
+  background-color: var(--bg-color-secondary) !important;
+}
+
+.md-rawblock-input {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* Raw 块工具提示 */
+.md-rawblock > .md-rawblock-tooltip,
+.md-rawblock-tooltip {
+  background-color: var(--bg-color-secondary) !important;
+  color: var(--text-color-muted) !important;
+}
+
+.md-rawblock-tooltip .ty-rawblock-confirm,
+.md-rawblock-tooltip a,
+.md-rawblock-tooltip span {
+  background-color: var(--bg-color-secondary) !important;
+  color: var(--text-color-muted) !important;
+}
+
+/* HTML块右上角标签 */
+.md-htmlblock-panel,
+.md-htmlblock .md-rawblock-tooltip {
+  background-color: var(--bg-color-secondary) !important;
+  color: var(--text-color-muted) !important;
+}
+
+.md-rawblock-before,
+.md-rawblock-after {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* ===========================================================================
+   数学公式样式
+   =========================================================================== */
+
+.md-inline-math script,
+.md-display-math script {
+  color: var(--accent-purple);
+}
+
+/* MathJax容器 */
+.MathJax_Display {
+  margin: 1rem 0;
+}
+
+/* 数学公式编辑面板 */
+.md-rawblock-control:not(.md-rawblock-tooltip) {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.md-mathjax-midline {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.md-rawblock-on-edit,
+.md-rawblock-on-edit .md-rawblock-container {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* 数学公式编辑面板背景 */
+.rawblock-edit-panel-bd,
+[class*="rawblock-edit"] {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.MathJax_SVG:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+/* 编辑模式光标颜色 */
+.md-rawblock-container .CodeMirror div.CodeMirror-cursor,
+.md-htmlblock-container .CodeMirror div.CodeMirror-cursor,
+.md-rawblock .CodeMirror div.CodeMirror-cursor,
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 2px solid #939293 !important;
+}
+
+.md-rawblock-input .CodeMirror-cursor,
+.md-mathjax-midline .CodeMirror-cursor {
+  border-left: 2px solid #939293 !important;
+}
+
+/* textarea 光标 */
+textarea {
+  caret-color: #939293 !important;
+}
+
+/* ===========================================================================
+   响应式设计
+   =========================================================================== */
+
+@media (max-width: 768px) {
+  #write {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  #typora-source .CodeMirror-lines {
+    padding: 20px;
+  }
+  
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.2em; }
+  h4 { font-size: 1.1em; }
+  h5 { font-size: 1em; }
+  h6 { font-size: 0.9em; }
+}
+
+/* ===========================================================================
+   打印样式
+   =========================================================================== */
+
+@media print {
+  :root {
+    --bg-color-primary: #2D2A2E;
+    --bg-color-secondary: #221F22;
+    --bg-color-tertiary: #403E41;
+    --bg-color-code: #252226;
+    --bg-color-inline-code: #252226;
+    --text-color-primary: #FCFCFA;
+    --text-color-secondary: #D8D5D4;
+    --text-color-muted: #939293;
+    --border-color: #403E41;
+    --selection-bg: rgba(120, 220, 232, 0.25);
+  }
+
+  @page {
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: var(--bg-color-primary) !important;
+    color: var(--text-color-primary) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #write {
+    background: var(--bg-color-primary) !important;
+    color: var(--text-color-primary) !important;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    max-width: none;
+    min-height: 100vh;
+    padding: 40px var(--content-padding);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #write p,
+  #write li,
+  #write td,
+  #write th,
+  #write dd,
+  #write dt {
+    color: var(--text-color-primary) !important;
+  }
+
+  #write p,
+  #write li {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+    page-break-after: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  h1 {
+    color: #FF6188 !important;
+    border-bottom-color: #FF6188 !important;
+  }
+
+  h2 {
+    color: #FC9867 !important;
+    border-bottom-color: #FC9867 !important;
+  }
+
+  h3 {
+    color: #FFD866 !important;
+    border-bottom-color: #FFD866 !important;
+  }
+
+  h4 {
+    color: #A9DC76 !important;
+  }
+
+  h5 {
+    color: #AB9DF2 !important;
+  }
+
+  h6 {
+    color: var(--text-color-muted) !important;
+  }
+
+  strong {
+    color: #FFD866 !important;
+  }
+
+  em {
+    color: #A9DC76 !important;
+  }
+
+  strong em,
+  em strong {
+    color: #FF6188 !important;
+  }
+  
+  pre, code {
+    background: var(--bg-color-code) !important;
+    color: var(--text-color-primary) !important;
+    border: 1px solid var(--border-color);
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  table,
+  .md-table,
+  .md-table-fig {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border-radius: 0 !important;
+    break-inside: auto;
+    page-break-inside: auto;
+    overflow: visible !important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    table-layout: fixed;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  table th,
+  table td,
+  .md-table th,
+  .md-table td,
+  .md-table-fig th,
+  .md-table-fig td {
+    padding: 8px 12px;
+    line-height: 1.45;
+    vertical-align: middle;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+
+  tr,
+  th,
+  td {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    -webkit-region-break-inside: avoid;
+  }
+
+  tbody tr {
+    break-before: auto;
+    break-after: auto;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+  
+  blockquote {
+    background: rgba(120, 220, 232, 0.12) !important;
+    border-left-color: var(--accent-blue);
+    color: var(--text-color-secondary) !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  blockquote p,
+  blockquote li {
+    color: var(--text-color-secondary) !important;
+  }
+  
+  a {
+    color: var(--accent-blue);
+    text-decoration: underline;
+  }
+}
