@@ -668,6 +668,33 @@ ol li::marker {
   line-height: 1.6rem;
 }
 
+/* 已完成 TODO：文字保持可读，删除线用同色系弱化细线 */
+#write .ul-list li.md-task-list-item.task-list-done,
+#write .ul-list li.md-task-list-item.task-list-done > p,
+#write .ul-list li.md-task-list-item.task-list-done > p strong,
+#write .ul-list li.md-task-list-item.task-list-done > p em,
+#write .ul-list li.md-task-list-item.task-list-done > p a,
+#write .ul-list li.md-task-list-item.task-list-done > p code {
+  color: rgba(252, 252, 250, 0.62);
+}
+
+#write .ul-list li.md-task-list-item.task-list-done > p {
+  text-decoration: line-through;
+  text-decoration-color: rgba(252, 252, 250, 0.36);
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+}
+
+#write .ul-list li.md-task-list-item.task-list-done::before {
+  text-decoration: none;
+  opacity: 1;
+}
+
+/* 嵌套未完成项不继承删除线与弱化色 */
+#write .ul-list li.md-task-list-item.task-list-done > ul {
+  text-decoration: none;
+}
+
 /* ===========================================================================
    表格样式
    =========================================================================== */
@@ -1250,6 +1277,20 @@ textarea {
   #write dd,
   #write dt {
     color: var(--text-color-primary) !important;
+  }
+
+  #write li.md-task-list-item.task-list-done,
+  #write li.md-task-list-item.task-list-done > p,
+  #write li.md-task-list-item.task-list-done > p strong,
+  #write li.md-task-list-item.task-list-done > p em {
+    color: rgba(252, 252, 250, 0.62) !important;
+  }
+
+  #write li.md-task-list-item.task-list-done > p {
+    text-decoration: line-through;
+    text-decoration-color: rgba(252, 252, 250, 0.36);
+    text-decoration-thickness: 1px;
+    text-decoration-skip-ink: none;
   }
 
   #write p,
