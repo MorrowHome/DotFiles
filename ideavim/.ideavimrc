@@ -21,6 +21,12 @@ set clipboard=unnamedplus,ideaput
 set scrolloff=5
 set argtextobj
 
+" 光标形状对齐 Neovim：Normal 方块，Insert 细竖线
+" 若 Insert 仍是方块，到 Rider 关掉:
+"   Settings → Editor → General → Appearance → Use block caret
+" 那项会覆盖 guicursor，所有模式都变成粗方块
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
+
 " C#/Unity 的 4 空格缩进由 Rider 代码风格控制:
 "   Settings → Editor → Code Style → C# → Tabs and Indents
 " 以下仅影响 >> 等 Vim 缩进命令，当前 IdeaVim 若不支持可保持注释:
