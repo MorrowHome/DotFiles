@@ -1,0 +1,66 @@
+" ============================================================
+" .ideavimrc — Rider / JetBrains ≈ LazyVim
+"
+" Marketplace 插件（IdeaVim 之外还需要）:
+"   - IdeaVim EasyMotion
+"   - Which-Key (idea-which-key)
+" 可选: LazyGit
+"
+" 改完后: 状态栏 IdeaVIM 图标 → Reload，或 :source ~/.ideavimrc
+" 查 Action ID: :actionlist  或  Vim → Track Action IDs
+"
+" 注意: 映射行末尾不要跟注释; 用 map/nmap/imap，不要用 noremap
+" ============================================================
+
+source ~/.lazy-idea/lazy-idea.vim
+
+"" -- 在 source 之后的设置会覆盖 lazy-idea --
+
+" yank/paste 走系统剪贴板 + Rider 智能粘贴
+set clipboard=unnamedplus,ideaput
+set scrolloff=5
+set argtextobj
+
+" C#/Unity 的 4 空格缩进由 Rider 代码风格控制:
+"   Settings → Editor → Code Style → C# → Tabs and Indents
+" 以下仅影响 >> 等 Vim 缩进命令，当前 IdeaVim 若不支持可保持注释:
+" set expandtab
+" set tabstop=4
+" set shiftwidth=4
+" set softtabstop=4
+
+"" -- 保存（LazyVim 也是 Ctrl-s） --
+nmap <C-s> <Action>(SaveAll)
+imap <C-s> <Action>(SaveAll)
+
+"" -- Code: Rider 更贴 LazyVim 语义的 Action --
+" ca = code action（意图/灯泡），不是重构菜单
+nmap <Leader>ca <Action>(ShowIntentionActions)
+vmap <Leader>ca <Action>(ShowIntentionActions)
+nmap <Leader>cf <Action>(ReformatCode)
+vmap <Leader>cf <Action>(ReformatCode)
+
+"" -- Git: 补 commit / push（lazy-idea 的 gc 只是再开一次 Log） --
+let g:WhichKeyDesc_git_commit = "<leader>gc Git Commit"
+nmap <Leader>gc <Action>(CheckinProject)
+let g:WhichKeyDesc_git_push = "<leader>gp Git Push"
+nmap <Leader>gp <Action>(Git.Push)
+
+"" -- Rider 运行（LazyVim 没有 <leader>r 分组） --
+let g:WhichKeyDesc_run = "<leader>r Run"
+nmap <Leader>r <Action>(Run)
+
+"" -- Visual mode 快速包围（lazy-idea 另有 gsa/gsd/gsr） --
+vmap <Leader>( <Esc>`<i(<Esc>`>la)<Esc>
+vmap <Leader>[ <Esc>`<i[<Esc>`>la]<Esc>
+vmap <Leader>{ <Esc>`<i{<Esc>`>la}<Esc>
+
+"" -- 其它 Rider 专属（按需取消注释） --
+" nmap <Leader>m <Action>(BuildSolution)
+
+"" -- 与 IDE 抢 Ctrl 时，可在此指定谁处理，或到
+"    Settings → Editor → Vim → Shortcut Conflicts
+" sethandler <C-h> a:vim
+" sethandler <C-j> a:vim
+" sethandler <C-k> a:vim
+" sethandler <C-l> a:vim
