@@ -40,12 +40,12 @@
   --hover-bg: rgba(64, 62, 65, 0.45); /* 悬停背景 */
   --selection-bg: rgba(120, 220, 232, 0.25); /* 选择背景 */
   --shadow: rgba(0, 0, 0, 0.45);     /* 阴影 */
-  
+
   /* 字体设置（来自Obsidian配置） */
-  --font-family-sans: 'LXGW WenKai', 'LXGW WenKai Screen R', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-sans: 'SF Pro', 'PingFang SC', sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', Consolas, monospace;
-  --font-family-heading: '霞鹜文楷 GB Medium', 'LXGW WenKai', serif;
-  
+  --font-family-heading: 'American Typewriter', 'Sonti SC', serif;
+
   /* 字体大小（来自Obsidian配置） */
   --font-size-base: 16px;
   --font-size-h1: 1.7625em;         /* 28.2px */
@@ -55,7 +55,7 @@
   --font-size-h5: 1.2625em;         /* 20.2px */
   --font-size-h6: 1em;              /* 16px */
   --font-size-code: 0.9em;          /* 14.4px */
-  
+
   /* 其他设置 */
   --line-height-base: 1.6;
   --border-radius: 6px;
@@ -1215,11 +1215,11 @@ textarea {
     padding: 20px;
     max-width: 100%;
   }
-  
+
   #typora-source .CodeMirror-lines {
     padding: 20px;
   }
-  
+
   h1 { font-size: 1.5em; }
   h2 { font-size: 1.3em; }
   h3 { font-size: 1.2em; }
@@ -1298,14 +1298,14 @@ textarea {
     orphans: 3;
     widows: 3;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     break-after: avoid;
     page-break-after: avoid;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  
+
   h1 {
     color: #FF6188 !important;
     border-bottom-color: #FF6188 !important;
@@ -1345,7 +1345,7 @@ textarea {
   em strong {
     color: #FF6188 !important;
   }
-  
+
   pre, code {
     background: var(--bg-color-code) !important;
     color: var(--text-color-primary) !important;
@@ -1405,7 +1405,7 @@ textarea {
     break-inside: avoid-page;
     page-break-inside: avoid;
   }
-  
+
   blockquote {
     background: rgba(120, 220, 232, 0.12) !important;
     border-left-color: var(--accent-blue);
@@ -1422,7 +1422,7 @@ textarea {
   blockquote li {
     color: var(--text-color-secondary) !important;
   }
-  
+
   a {
     color: var(--accent-blue);
     text-decoration: underline;
