@@ -1,0 +1,551 @@
+# ============================================================
+# Unity + Rider + CSharpier
+#
+# CSharpier:
+#   - indentation
+#   - whitespace
+#   - wrapping
+#   - brace layout
+#   - general formatting
+#
+# EditorConfig:
+#   - naming
+#   - C# semantic style
+#   - using directives
+#   - basic file conventions
+#
+#
+# Naming convention:
+#
+#   Instance field      -> m_PascalCase
+#   Static field        -> s_PascalCase
+#   Constant            -> k_PascalCase
+#
+#   Class / Struct      -> PascalCase
+#   Interface           -> IPascalCase
+#   Enum                -> PascalCase
+#   Method              -> PascalCase
+#   Property            -> PascalCase
+#   Event               -> PascalCase
+#
+#   Parameter           -> camelCase
+#   Local variable      -> camelCase
+#   Type parameter      -> TPascalCase
+#
+#
+# Examples:
+#
+#   private int m_Health;
+#   public int m_Level;
+#
+#   private static int s_PlayerCount;
+#   private const int k_MaxHealth = 100;
+#
+#   [SerializeField]
+#   private float m_MoveSpeed;
+#
+# ============================================================
+
+root = true
+
+
+# ============================================================
+# Global file settings
+# ============================================================
+
+[*]
+
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+insert_final_newline = true
+
+
+# ============================================================
+# C#
+# ============================================================
+
+[*.cs]
+
+
+# ============================================================
+# Formatter
+#
+# All C# formatting is handled by CSharpier.
+#
+# Rider officially supports disable_formatter=true for C#.
+# ============================================================
+
+disable_formatter = true
+
+
+# ============================================================
+# var
+#
+# Prefer:
+#
+# int count = 10;
+#
+# var player = new Player();
+#
+# Player player = GetPlayer();
+#
+# In other words:
+#
+# - built-in primitive type -> explicit
+# - obvious RHS type       -> var
+# - non-obvious RHS type   -> explicit
+# ============================================================
+
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = false:suggestion
+
+
+# ============================================================
+# Built-in C# type aliases
+#
+# Prefer:
+#
+# int
+# string
+# bool
+# object
+#
+# Instead of:
+#
+# Int32
+# String
+# Boolean
+# Object
+# ============================================================
+
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+
+
+# ============================================================
+# this.
+#
+# m_ already identifies instance fields.
+#
+# Prefer:
+#
+# m_Health = health;
+#
+# Instead of:
+#
+# this.m_Health = health;
+# ============================================================
+
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+
+
+# ============================================================
+# Access modifiers
+#
+# Prefer explicit accessibility:
+#
+# private void Update()
+#
+# Instead of relying on the C# default.
+# ============================================================
+
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+
+
+# ============================================================
+# using directives
+#
+# Prefer:
+#
+# using System;
+# using UnityEngine;
+#
+# namespace Game
+# {
+# }
+# ============================================================
+
+csharp_using_directive_placement = outside_namespace:suggestion
+
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+
+# ============================================================
+#
+# NAMING STYLES
+#
+# ============================================================
+
+
+# ------------------------------------------------------------
+# PascalCase
+# ------------------------------------------------------------
+
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+
+# ------------------------------------------------------------
+# camelCase
+# ------------------------------------------------------------
+
+dotnet_naming_style.camel_case.capitalization = camel_case
+
+
+# ------------------------------------------------------------
+# IPascalCase
+# ------------------------------------------------------------
+
+dotnet_naming_style.interface_pascal_case.capitalization = pascal_case
+dotnet_naming_style.interface_pascal_case.required_prefix = I
+
+
+# ------------------------------------------------------------
+# TPascalCase
+# ------------------------------------------------------------
+
+dotnet_naming_style.type_parameter_pascal_case.capitalization = pascal_case
+dotnet_naming_style.type_parameter_pascal_case.required_prefix = T
+
+
+# ------------------------------------------------------------
+# m_PascalCase
+#
+# Instance fields
+# ------------------------------------------------------------
+
+dotnet_naming_style.instance_field_style.capitalization = pascal_case
+dotnet_naming_style.instance_field_style.required_prefix = m_
+
+
+# ------------------------------------------------------------
+# s_PascalCase
+#
+# Static fields
+# ------------------------------------------------------------
+
+dotnet_naming_style.static_field_style.capitalization = pascal_case
+dotnet_naming_style.static_field_style.required_prefix = s_
+
+
+# ------------------------------------------------------------
+# k_PascalCase
+#
+# Constants
+# ------------------------------------------------------------
+
+dotnet_naming_style.constant_style.capitalization = pascal_case
+dotnet_naming_style.constant_style.required_prefix = k_
+
+
+# ============================================================
+#
+# TYPES AND NAMESPACES
+#
+# Player
+# PlayerController
+# GameState
+# CombatSystem
+# Game.Core
+#
+# ============================================================
+
+dotnet_naming_symbols.types_and_namespaces.applicable_kinds = namespace,class,struct,enum,delegate
+dotnet_naming_symbols.types_and_namespaces.applicable_accessibilities = *
+
+dotnet_naming_rule.types_and_namespaces.symbols = types_and_namespaces
+dotnet_naming_rule.types_and_namespaces.style = pascal_case
+dotnet_naming_rule.types_and_namespaces.severity = warning
+
+
+# ============================================================
+#
+# INTERFACES
+#
+# IDamageable
+# IInteractable
+# IState
+#
+# ============================================================
+
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_symbols.interfaces.applicable_accessibilities = *
+
+dotnet_naming_rule.interfaces.symbols = interfaces
+dotnet_naming_rule.interfaces.style = interface_pascal_case
+dotnet_naming_rule.interfaces.severity = warning
+
+
+# ============================================================
+#
+# METHODS
+#
+# Update()
+# TakeDamage()
+# LoadScene()
+# CalculateDamage()
+#
+# ============================================================
+
+dotnet_naming_symbols.methods.applicable_kinds = method
+dotnet_naming_symbols.methods.applicable_accessibilities = *
+
+dotnet_naming_rule.methods.symbols = methods
+dotnet_naming_rule.methods.style = pascal_case
+dotnet_naming_rule.methods.severity = warning
+
+
+# ============================================================
+#
+# LOCAL FUNCTIONS
+#
+# CalculateResult()
+#
+# ============================================================
+
+dotnet_naming_symbols.local_functions.applicable_kinds = local_function
+dotnet_naming_symbols.local_functions.applicable_accessibilities = local
+
+dotnet_naming_rule.local_functions.symbols = local_functions
+dotnet_naming_rule.local_functions.style = pascal_case
+dotnet_naming_rule.local_functions.severity = warning
+
+
+# ============================================================
+#
+# PROPERTIES
+#
+# Health
+# MoveSpeed
+# CurrentTarget
+#
+# ============================================================
+
+dotnet_naming_symbols.properties.applicable_kinds = property
+dotnet_naming_symbols.properties.applicable_accessibilities = *
+
+dotnet_naming_rule.properties.symbols = properties
+dotnet_naming_rule.properties.style = pascal_case
+dotnet_naming_rule.properties.severity = warning
+
+
+# ============================================================
+#
+# EVENTS
+#
+# Damaged
+# PlayerDied
+# SceneLoaded
+#
+# ============================================================
+
+dotnet_naming_symbols.events.applicable_kinds = event
+dotnet_naming_symbols.events.applicable_accessibilities = *
+
+dotnet_naming_rule.events.symbols = events
+dotnet_naming_rule.events.style = pascal_case
+dotnet_naming_rule.events.severity = warning
+
+
+# ============================================================
+#
+# PARAMETERS
+#
+# damage
+# moveSpeed
+# targetPosition
+#
+# ============================================================
+
+dotnet_naming_symbols.parameters.applicable_kinds = parameter
+dotnet_naming_symbols.parameters.applicable_accessibilities = *
+
+dotnet_naming_rule.parameters.symbols = parameters
+dotnet_naming_rule.parameters.style = camel_case
+dotnet_naming_rule.parameters.severity = warning
+
+
+# ============================================================
+#
+# LOCAL VARIABLES
+#
+# currentHealth
+# targetPosition
+# playerCount
+#
+# ============================================================
+
+dotnet_naming_symbols.locals.applicable_kinds = local
+dotnet_naming_symbols.locals.applicable_accessibilities = local
+
+dotnet_naming_rule.locals.symbols = locals
+dotnet_naming_rule.locals.style = camel_case
+dotnet_naming_rule.locals.severity = warning
+
+
+# ============================================================
+#
+# GENERIC TYPE PARAMETERS
+#
+# T
+# TValue
+# TKey
+# TItem
+#
+# ============================================================
+
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+dotnet_naming_symbols.type_parameters.applicable_accessibilities = *
+
+dotnet_naming_rule.type_parameters.symbols = type_parameters
+dotnet_naming_rule.type_parameters.style = type_parameter_pascal_case
+dotnet_naming_rule.type_parameters.severity = warning
+
+
+# ============================================================
+#
+# INSTANCE FIELDS
+#
+# All instance fields use:
+#
+# m_PascalCase
+#
+# Accessibility does NOT change naming.
+#
+# Correct:
+#
+# private int m_Health;
+# protected int m_Level;
+# internal int m_State;
+# public int m_DebugValue;
+#
+# readonly is also included.
+#
+# Rider-specific "instance" modifier prevents this rule from
+# matching static fields.
+#
+# ============================================================
+
+dotnet_naming_symbols.instance_fields.applicable_kinds = field
+dotnet_naming_symbols.instance_fields.applicable_accessibilities = *
+
+dotnet_naming_symbols.instance_fields.resharper_applicable_kinds = field,readonly_field
+dotnet_naming_symbols.instance_fields.resharper_required_modifiers = instance
+
+dotnet_naming_rule.instance_fields.symbols = instance_fields
+dotnet_naming_rule.instance_fields.style = instance_field_style
+dotnet_naming_rule.instance_fields.severity = warning
+dotnet_naming_rule.instance_fields.resharper_style = m_+AaBb
+
+
+# ============================================================
+#
+# UNITY SERIALIZED FIELDS
+#
+# IMPORTANT:
+#
+# Rider has a dedicated naming rule for Unity serialized
+# fields. It is NOT treated exactly like an ordinary field.
+#
+# Without overriding this rule, Rider may suggest:
+#
+# mCurrentVolume
+#
+# instead of:
+#
+# m_CurrentVolume
+#
+#
+# Correct:
+#
+# [SerializeField]
+# private Volume m_CurrentVolume;
+#
+# [SerializeField]
+# private float m_MoveSpeed;
+#
+#
+# "serialised" below uses JetBrains' British spelling.
+#
+# The GUID is Rider's built-in Unity serialized-field rule ID.
+#
+# ============================================================
+
+dotnet_naming_rule.unity_serialized_field_rule.import_to_resharper = true
+dotnet_naming_rule.unity_serialized_field_rule.resharper_description = Unity serialized field
+dotnet_naming_rule.unity_serialized_field_rule.resharper_guid = 5f0fdb63-c892-4d2c-9324-15c80b22a7ef
+
+dotnet_naming_rule.unity_serialized_field_rule.symbols = unity_serialized_field_symbols
+dotnet_naming_rule.unity_serialized_field_rule.style = instance_field_style
+dotnet_naming_rule.unity_serialized_field_rule.severity = warning
+
+dotnet_naming_rule.unity_serialized_field_rule.resharper_style = m_+AaBb
+
+
+dotnet_naming_symbols.unity_serialized_field_symbols.applicable_accessibilities = *
+dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds =
+
+dotnet_naming_symbols.unity_serialized_field_symbols.resharper_applicable_kinds = unity_serialised_field
+dotnet_naming_symbols.unity_serialized_field_symbols.resharper_required_modifiers = instance
+
+
+# ============================================================
+#
+# STATIC FIELDS
+#
+# s_PascalCase
+#
+# Correct:
+#
+# private static int s_PlayerCount;
+# public static GameManager s_Instance;
+#
+# static readonly also uses s_.
+#
+# ============================================================
+
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = *
+dotnet_naming_symbols.static_fields.required_modifiers = static
+
+dotnet_naming_symbols.static_fields.resharper_applicable_kinds = field,readonly_field
+dotnet_naming_symbols.static_fields.resharper_required_modifiers = static
+
+dotnet_naming_rule.static_fields.symbols = static_fields
+dotnet_naming_rule.static_fields.style = static_field_style
+dotnet_naming_rule.static_fields.severity = warning
+dotnet_naming_rule.static_fields.resharper_style = s_+AaBb
+
+
+# ============================================================
+#
+# CONSTANTS
+#
+# k_PascalCase
+#
+# Correct:
+#
+# private const int k_MaxHealth = 100;
+# public const float k_DefaultSpeed = 5f;
+#
+# const is implicitly static in C#, so this rule is more
+# specific than the generic static-field rule.
+#
+# ============================================================
+
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.applicable_accessibilities = *
+dotnet_naming_symbols.constants.required_modifiers = const
+
+dotnet_naming_symbols.constants.resharper_applicable_kinds = constant_field
+
+dotnet_naming_rule.constants.symbols = constants
+dotnet_naming_rule.constants.style = constant_style
+dotnet_naming_rule.constants.severity = warning
+dotnet_naming_rule.constants.resharper_style = k_+AaBb
