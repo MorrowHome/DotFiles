@@ -42,9 +42,10 @@
   --shadow: rgba(0, 0, 0, 0.45);     /* 阴影 */
 
   /* 字体设置（来自Obsidian配置） */
-  --font-family-sans: 'SF Pro', 'PingFang SC', sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', Consolas, monospace;
-  --font-family-heading: 'American Typewriter', 'Sonti SC', serif;
+  --font-family-sans: 'SF Pro', 'PingFang SC','Microsoft YaHei', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro','PingFang SC', Consolas, monospace;
+  --font-family-heading: 'American Typewriter', 'Sonti SC','STSong', serif;
+  --mermaid-font-family: "JetBrains Mono", "Cascadia Code", "PingFang SC", monospace;
 
   /* 字体大小（来自Obsidian配置） */
   --font-size-base: 16px;
